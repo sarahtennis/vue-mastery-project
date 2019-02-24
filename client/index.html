@@ -20,9 +20,18 @@
 
             <div class="product-info">
                 <h1>{{ product }}</h1>
+
                 <p v-show="inventory > 10">In Stock</p>
                 <p v-show="inventory <= 10 && inventory > 0">Almost out of stock!</p>
                 <p v-show="inventory <= 0">Out of Stock</p>
+
+                <ul>
+                    <li v-for="detail in details">{{ detail }}</li>
+                </ul>
+
+                <div v-for="variant in variants" :key="variant.variantId">
+                    <p>{{ variant.variantColor }}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -38,4 +47,5 @@
 v-bind - dynamically binds an attribute to an expression (DATA BINDING)
 v-if/v-else - Vue directives to conditionally render based on expression (removes from DOM on false)
 v-show - conditionally renders by setting display: none
+v-for - used for list rendering (for element in iterable)
  -->

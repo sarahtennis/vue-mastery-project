@@ -7,6 +7,17 @@ var app = new Vue({
         product: 'Socks',
         description: 'For warm feet',
         image: './green-white.jpg',
-        inventory: 100
+        inventory: 100,
+        details: ["80% cotton", "20% polyester", "Gender-netural"],
+        variants: [
+            {
+                variantId: 2234,
+                variantColor: 'green'
+            },
+            {
+                variantId: 2235,
+                variantColor: 'blue'
+            }
+        ]
     }
 })
