@@ -1,29 +1,61 @@
-// create new Vue instance
-// el: id of main Vue div
+// product component using template literal
+Vue.component('product', {
+    props: {
+        premium: {
+            type: Boolean,
+            required: true
+        }
+    },
+    template: `
+        <div class="product">
+            <div class="product-image">
+                <img v-bind:src="image">
+            </div>
 
-var app = new Vue({
-    el: '#app',
-    data: {
-        brand: 'Vue Mastery',
-        product: 'Socks',
-        description: 'For warm feet',
-        selectedVariant: 0,
-        details: ["80% cotton", "20% polyester", "Gender-netural"],
-        variants: [
-            {
-                variantId: 2234,
-                variantColor: 'green',
-                variantImage: 'green-white.jpg',
-                variantQuantity: 10
-            },
-            {
-                variantId: 2235,
-                variantColor: 'blue',
-                variantImage: 'blue-white.jpg',
-                variantQuantity: 0
-            }
-        ],
-        cart: 0
+            <div class="product-info">
+                <h1>{{ title }}</h1>
+
+                <p v-show="inStock">In Stock</p>
+                <p v-show="!inStock" :class="{ 'line-through': !inStock }">Out of Stock</p>
+                <p>Shipping: {{ shipping }}</p>
+                
+                <ul>
+                    <li v-for="detail in details">{{ detail }}</li>
+                </ul>
+
+                <div v-for="(variant, index) in variants" :key="variant.variantId" class="color-box" :style="{ backgroundColor: variant.variantColor }" @mouseover="updateProduct(index)"></div>
+
+                <button v-on:click="addToCart" :disabled="!inStock" :class="{disabledButton: !inStock}">Add to Cart</button>
+
+                <div class="cart">
+                    <p>Cart({{cart}})</p>
+                </div>
+            </div>
+        </div>
+    `,
+    data: function () {
+        return {
+            brand: 'Vue Mastery',
+            product: 'Socks',
+            description: 'For warm feet',
+            selectedVariant: 0,
+            details: ["80% cotton", "20% polyester", "Gender-netural"],
+            variants: [
+                {
+                    variantId: 2234,
+                    variantColor: 'green',
+                    variantImage: 'green-white.jpg',
+                    variantQuantity: 10
+                },
+                {
+                    variantId: 2235,
+                    variantColor: 'blue',
+                    variantImage: 'blue-white.jpg',
+                    variantQuantity: 0
+                }
+            ],
+            cart: 0
+        }
     },
     methods: {
         addToCart: function () {
@@ -42,6 +74,23 @@ var app = new Vue({
         },
         inStock: function () {
             return this.variants[this.selectedVariant].variantQuantity
+        },
+        shipping: function () {
+            if (this.premium) {
+                return "Free"
+            }
+            
+            return 2.99
         }
+    }
+})
+
+// create new Vue instance
+// el: id of main Vue div
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        premium: true
     }
 })
