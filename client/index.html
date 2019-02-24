@@ -15,7 +15,7 @@
     <div id="app">
         <div class="product">
             <div class="product-image">
-                <img v-bind:src="image" >
+                <img v-bind:src="image">
             </div>
 
             <div class="product-info">
@@ -23,17 +23,16 @@
 
                 <p v-show="inventory > 10">In Stock</p>
                 <p v-show="inventory <= 10 && inventory > 0">Almost out of stock!</p>
-                <p v-show="inventory <= 0">Out of Stock</p>
+                <p v-show="inventory <= 0" :class="{ 'line-through': inventory <= 0 }">Out of Stock</p>
 
                 <ul>
                     <li v-for="detail in details">{{ detail }}</li>
                 </ul>
 
-                <div v-for="variant in variants" :key="variant.variantId">
-                    <p @mouseover="updateProduct(variant.variantImage)">{{ variant.variantColor }}</p>
+                <div v-for="variant in variants" :key="variant.variantId" class="color-box" :style="{ backgroundColor: variant.variantColor }" @mouseover="updateProduct(variant.variantImage)">
                 </div>
 
-                <button v-on:click="addToCart">Add to Cart</button>
+                <button v-on:click="addToCart" :disabled="inventory <= 0" :class="{disabledButton: inventory <= 0}">Add to Cart</button>
 
                 <div class="cart">
                     <p>Cart({{cart}})</p>
