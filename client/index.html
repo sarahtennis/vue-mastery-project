@@ -30,7 +30,13 @@
                 </ul>
 
                 <div v-for="variant in variants" :key="variant.variantId">
-                    <p>{{ variant.variantColor }}</p>
+                    <p @mouseover="updateProduct(variant.variantImage)">{{ variant.variantColor }}</p>
+                </div>
+
+                <button v-on:click="addToCart">Add to Cart</button>
+
+                <div class="cart">
+                    <p>Cart({{cart}})</p>
                 </div>
             </div>
         </div>
@@ -48,4 +54,5 @@ v-bind - dynamically binds an attribute to an expression (DATA BINDING)
 v-if/v-else - Vue directives to conditionally render based on expression (removes from DOM on false)
 v-show - conditionally renders by setting display: none
 v-for - used for list rendering (for element in iterable)
+v-on:event - listens for declared event (inline if simple, otherwise declare method property on Vue instance)
  -->
