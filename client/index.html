@@ -19,20 +19,19 @@
             </div>
 
             <div class="product-info">
-                <h1>{{ product }}</h1>
+                <h1>{{ title }}</h1>
 
-                <p v-show="inventory > 10">In Stock</p>
-                <p v-show="inventory <= 10 && inventory > 0">Almost out of stock!</p>
-                <p v-show="inventory <= 0" :class="{ 'line-through': inventory <= 0 }">Out of Stock</p>
+                <p v-show="inStock">In Stock</p>
+                <p v-show="!inStock" :class="{ 'line-through': !inStock }">Out of Stock</p>
 
                 <ul>
                     <li v-for="detail in details">{{ detail }}</li>
                 </ul>
 
-                <div v-for="variant in variants" :key="variant.variantId" class="color-box" :style="{ backgroundColor: variant.variantColor }" @mouseover="updateProduct(variant.variantImage)">
+                <div v-for="(variant, index) in variants" :key="variant.variantId" class="color-box" :style="{ backgroundColor: variant.variantColor }" @mouseover="updateProduct(index)">
                 </div>
 
-                <button v-on:click="addToCart" :disabled="inventory <= 0" :class="{disabledButton: inventory <= 0}">Add to Cart</button>
+                <button v-on:click="addToCart" :disabled="!inStock" :class="{disabledButton: !inStock}">Add to Cart</button>
 
                 <div class="cart">
                     <p>Cart({{cart}})</p>
@@ -54,4 +53,5 @@ v-if/v-else - Vue directives to conditionally render based on expression (remove
 v-show - conditionally renders by setting display: none
 v-for - used for list rendering (for element in iterable)
 v-on:event - listens for declared event (inline if simple, otherwise declare method property on Vue instance)
+computed - reruns whenever dependency changes, vue instance property
  -->
