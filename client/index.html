@@ -14,8 +14,13 @@
 
     <div id="app">
         <div class="product">
-            <h1>{{ product }}</h1>
-            {{ description }}
+            <div class="product-image">
+                <img v-bind:src="image" >
+            </div>
+
+            <div class="product-info">
+                <h1>{{ product }}</h1>
+            </div>
         </div>
     </div>
 
@@ -26,7 +31,7 @@
 </html>
 
 <!-- 
-- {{}} - when Vue sees expression, references associated instances data
-
+{{}} - when Vue sees expression, references associated instances data
+v-bind - dynamically binds an attribute to an expression (DATA BINDING)
 
  -->
